@@ -3,7 +3,11 @@ export default {
   content: ["./index.html","./src/**/*.{html,js,jsx,ts,tsx}"],
   theme: {
     extend: {},
+    daisyui: {
+      themes: ["light", "dark", "cupcake"],
+    },
   },
-  plugins: [],
+  // eslint-disable-next-line no-undef
+  plugins: [require("daisyui"), require("@tailwindcss/line-clamp")],
 }
 

@@ -51,6 +51,12 @@ npx tailwindcss init
 
 4. Add the tailwind directive at the top of the `index.css` file
 
+5. Add the following details in plugin property of tailwind config
+
+```
+[require("daisyui"), require("@tailwindcss/line-clamp")]
+```
+
 ```
 @tailwind base;
 @tailwind components;
