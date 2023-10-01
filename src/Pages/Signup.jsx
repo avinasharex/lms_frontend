@@ -48,8 +48,7 @@ function Signup() {
     if (
       !signupData.email ||
       !signupData.fullName ||
-      !signupData.password ||
-      !signupData.email
+      !signupData.password
     ) {
       toast.error("Please fill the details");
       return;
@@ -60,10 +59,15 @@ function Signup() {
     }
     if (
       !signupData.email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)
-    ) {
-      toast.error("Invalid email id");
-      return;
+    )
+    {
+        toast.error("Invalid email id");
+        return;
     }
+if(!signupData.password.match()){
+    toast.error("Password must be at least one letter (uppercase or lowercase),one digit (0-9), one special character among @$!%*?& and minimum length of 8 characters");
+        return;
+}
     
       const formData = new FormData();
       formData.append("fullName", signupData.fullName);
