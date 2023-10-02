@@ -2,6 +2,7 @@
 import { Route, Routes } from "react-router-dom"
 
 import AboutPage from "./Pages/AboutPage"
+import CourseList from "./Pages/Course/CourseList"
 import HomePage from "./Pages/HomePage"
 import Login from "./Pages/Login"
 import NotFound from "./Pages/NotFound"
@@ -17,6 +18,8 @@ function App() {
     <Route path="/about" element={<AboutPage></AboutPage>}></Route>
     <Route path="/signup" element={<Signup></Signup>}></Route>
     <Route path="/login" element={<Login></Login>}></Route>
+
+    <Route path="/courses" element={<CourseList></CourseList>}></Route>
   
     <Route path="*" element={<NotFound></NotFound>}></Route>
    </Routes>
