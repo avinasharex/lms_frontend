@@ -73,7 +73,6 @@ if(!isValidPassword(signupData.password)){
       formData.append("email", signupData.email);
       formData.append("password", signupData.password);
       formData.append("avaatar", signupData.avatar);
-      
           const response = await dispatch(createAccount(formData));
           if (response.payload.success) {
             navigate("/");
