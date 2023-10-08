@@ -33,7 +33,7 @@ function Signup() {
     if (uploadedImage) {
       setSignupData({
         ...signupData,
-        avaatar: uploadedImage,
+        avatar: uploadedImage,
       });
 
       const fileReader = new FileReader();
@@ -72,7 +72,7 @@ if(!isValidPassword(signupData.password)){
       formData.append("fullName", signupData.fullName);
       formData.append("email", signupData.email);
       formData.append("password", signupData.password);
-      formData.append("avaatar", signupData.avatar);
+      formData.append("avatar", signupData.avatar);
           const response = await dispatch(createAccount(formData));
           if (response.payload.success) {
             navigate("/");
@@ -82,7 +82,7 @@ if(!isValidPassword(signupData.password)){
             fullName: "",
             email: "",
             password: "",
-            avaatar: "",
+            avatar: "",
           });
           setImagePreview("");
   }
