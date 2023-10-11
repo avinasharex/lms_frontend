@@ -6,7 +6,7 @@ import axiosInstance from "../../Helpers/AxiosInstance";
 const initialState = {
     isLoggedIn: localStorage.getItem("isLoggedIn") || false,
     role: localStorage.getItem('role') || "",
-    data: JSON.parse(localStorage.getItem("data")) || {}
+    data: localStorage.getItem("data") ? JSON.parse(localStorage.getItem("data")) : {} || {}
 }
 
 export const createAccount = createAsyncThunk('auth/signup', async(data)=>{
@@ -57,6 +57,31 @@ export const logout = createAsyncThunk('auth/logout', async()=>{
         toast.error(error?.response?.data?.message)
     }
 })
+export const updateProfile = createAsyncThunk('user/update/profile', async(data)=>{
+    try {
+        const res = await axiosInstance.put(`http://localhost:5000/api/v1/user/update/${data[0]}`, data[1])
+        const successMessage = await res?.data?.message
+        toast.promise( 
+            Promise.resolve(successMessage),
+            {
+            loading: "Wait! profile update in progress...", 
+            success: "Profile updated successfully",
+            error: 'Failed to update profile'
+        })
+        return res.data
+    } catch (error) {
+        toast.error(error?.response?.data?.message)
+    }
+})
+
+export const getUserData = createAsyncThunk('user/details', async()=>{
+    try {
+        const res = await axiosInstance.get(`http://localhost:5000/api/v1/user/me`)
+        return res.data
+    } catch (error) {
+        toast.error(error?.message)
+    }
+})
 
 const authSlice = createSlice ({
     name: "auth",
@@ -76,6 +101,14 @@ const authSlice = createSlice ({
             state.data = {}
             state.isLoggedIn = false
             state.role = ''
+        })
+        .addCase(getUserData.fulfilled,(state,action)=>{
+            localStorage.setItem("data", JSON.stringify(action?.payload?.user))
+            localStorage.setItem("isLoggedIn", true)
+            localStorage.setItem("role", action?.payload?.user?.role)
+            state.isLoggedIn = true
+            state.data = action?.payload?.user
+            state.role = action?.payload?.user?.role
         })
     }
 })
