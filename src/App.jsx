@@ -6,6 +6,7 @@ import Contact from "./Pages/Contact";
 import CourseDescription from "./Pages/Course/CourseDescription";
 import CourseList from "./Pages/Course/CourseList";
 import CreateCourse from "./Pages/Course/CreateCourse";
+import DisplayLecture from "./Pages/Dashboard/DisplayLecture";
 import Denied from "./Pages/Denied";
 import HomePage from "./Pages/HomePage";
 import Login from "./Pages/Login";
@@ -43,6 +44,7 @@ function App() {
           <Route path="/checkout" element={<Checkout></Checkout>}></Route>
           <Route path="/checkout/success" element={<CheckoutSuccess></CheckoutSuccess>}></Route>
           <Route path="/checkout/fail" element={<CheckoutFailure></CheckoutFailure>}></Route>
+          <Route path="/course/lecture" element={<DisplayLecture></DisplayLecture>}></Route>
         </Route>
 
         <Route path="/signup" element={<Signup></Signup>}></Route>

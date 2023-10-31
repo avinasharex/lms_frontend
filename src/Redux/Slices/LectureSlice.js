@@ -7,10 +7,11 @@ const initialState = {
     lectures: []
 }
 
-export const getCourseLectures = createAsyncThunk("/course/lecture/get", async(cid)=>{
+export const getCourseLectures = createAsyncThunk("/course/lecture/get", async(id)=>{
     try {
-        const response = await axiosInstance.get(`http://localhost:5000/api/v1/courses/${cid}`)
+        const response = await axiosInstance.get(`http://localhost:5000/api/v1/courses/${id}`)
         const successMessage = response?.data?.message
+        console.log(successMessage);
 
         toast.promise(Promise.resolve(successMessage), {
             loading: 'Fetching course lecture',
@@ -43,7 +44,7 @@ export const addCourseLectures = createAsyncThunk("/course/lecture/add", async(d
 })
 export const deleteCourseLectures = createAsyncThunk("/course/lecture/delete", async(data)=>{
     try {
-        const response = await axiosInstance.post(`http://localhost:5000/api/v1/courses/courseId=${data.courseId}&lectureId=${data.lectureId}`)
+        const response = await axiosInstance.delete(`http://localhost:5000/api/v1/courses/?courseId=${data.courseId}&lectureId=${data.lectureId}`)
         const successMessage = response?.data?.message
 
         toast.promise(Promise.resolve(successMessage), {
@@ -63,7 +64,7 @@ const lectureSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(getCourseLectures.fulfilled, (state,action)=>{
-            state.lectures = action?.payload?.lectures
+            state.lectures = action?.payload?.course?.lectures
         })
         builder.addCase(addCourseLectures.fulfilled, (state, action)=>{
             state.lectures = action?.payload?.course?.lectures
