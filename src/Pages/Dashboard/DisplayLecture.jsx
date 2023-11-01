@@ -19,7 +19,6 @@ function DisplayLecture() {
     await dispatch(getCourseLectures(courseId))
   }
   useEffect(() => {
-    // console.log(state._id);
     if (!state) navigate("/course");
     const id = state._id;
     dispatch(getCourseLectures(id));
@@ -31,7 +30,7 @@ function DisplayLecture() {
         <div className="text-center text-2xl font-semibold text-yellow-500">
           Course Name: {state?.title}
         </div>
-        {lectures && lectures.length > 0 && <div className="flex justify-center gap-10 w-full">
+        {(lectures && lectures.length > 0) ?  (<div className="flex justify-center gap-10 w-full">
           {/* {left section for playing videos and displaying course details to admin} */}
           <div className="space-y-5 w-[25rem] P-2 rounded-lg shadow-[0_0_10px_black]">
             <video
@@ -76,7 +75,7 @@ function DisplayLecture() {
                 )
             })}
           </ul>
-        </div>}
+        </div>):( role === 'ADMIN' && (<button onClick={()=> navigate('/course/addlecture', {state: {...state}})} className="btn-primary rounded-md px-2 py-1 text-sm">Add new lecture</button>))}
       </div>
     </HomeLayout>
   );

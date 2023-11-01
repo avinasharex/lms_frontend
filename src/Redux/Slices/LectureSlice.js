@@ -11,12 +11,11 @@ export const getCourseLectures = createAsyncThunk("/course/lecture/get", async(i
     try {
         const response = await axiosInstance.get(`http://localhost:5000/api/v1/courses/${id}`)
         const successMessage = response?.data?.message
-        console.log(successMessage);
 
         toast.promise(Promise.resolve(successMessage), {
             loading: 'Fetching course lecture',
             success: successMessage,
-            error: "Failed to load lectures"
+            error: "Failed to load lecture"
         })
         return await response.data
     } catch (error) {
@@ -29,15 +28,15 @@ export const addCourseLectures = createAsyncThunk("/course/lecture/add", async(d
         formData.append('lecture', data.lecture)
         formData.append('title', data.title)
         formData.append('description', data.description)
-        const response = await axiosInstance.post(`http://localhost:5000/api/v1/courses/${data.id}`, formData)
-        const successMessage = response?.data?.message
-
-        toast.promise(Promise.resolve(successMessage), {
+        
+        const response = axiosInstance.post(`http://localhost:5000/api/v1/courses/${data.id}`, formData)
+        
+        toast.promise(response, {
             loading: 'Adding course lecture',
-            success: successMessage,
-            error: "Failed to add the lectures"
+            success: "Lecture added successfully",
+            error: "Failed to add the lecture"
         })
-        return await response.data
+        return (await response).data;
     } catch (error) {
         toast.error(error?.response?.data?.message)
     }
