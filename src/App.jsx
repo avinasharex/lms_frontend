@@ -7,6 +7,7 @@ import CourseDescription from "./Pages/Course/CourseDescription";
 import CourseList from "./Pages/Course/CourseList";
 import CreateCourse from "./Pages/Course/CreateCourse";
 import AddLecture from "./Pages/Dashboard/AddLecture";
+import AdminDashboard from "./Pages/Dashboard/AdminDashboard";
 import DisplayLecture from "./Pages/Dashboard/DisplayLecture";
 import Denied from "./Pages/Denied";
 import HomePage from "./Pages/HomePage";
@@ -38,7 +39,10 @@ function App() {
             path="/course/create"
             element={<CreateCourse></CreateCourse>}
           ></Route>
+            <Route path="/course/addlecture" element={<AddLecture></AddLecture>}></Route>
+            <Route path="/admin/dashboard" element={<AdminDashboard></AdminDashboard>}></Route>
         </Route>
+
         <Route element={<RequireAuth allowedRole={["ADMIN", "USER"]} />}>
           <Route path="/user/profile" element={<Profile></Profile>}></Route>
           <Route path="/user/editprofile" element={<EditProfile></EditProfile>}></Route>
@@ -46,7 +50,6 @@ function App() {
           <Route path="/checkout/success" element={<CheckoutSuccess></CheckoutSuccess>}></Route>
           <Route path="/checkout/fail" element={<CheckoutFailure></CheckoutFailure>}></Route>
           <Route path="/course/lecture" element={<DisplayLecture></DisplayLecture>}></Route>
-          <Route path="/course/addlecture" element={<AddLecture></AddLecture>}></Route>
         </Route>
 
         <Route path="/signup" element={<Signup></Signup>}></Route>

@@ -22,6 +22,7 @@ function DisplayLecture() {
     if (!state) navigate("/course");
     const id = state._id;
     dispatch(getCourseLectures(id));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

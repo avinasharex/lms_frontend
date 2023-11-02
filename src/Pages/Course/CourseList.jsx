@@ -11,11 +11,12 @@ function CourseList() {
     const {courseData} = useSelector((state)=> state.course)
 
     async function loadCourse(){
-        dispatch(getAllCourses())
+       await dispatch(getAllCourses())
     }
 
     useEffect(()=>{
         loadCourse()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
   return (
     <HomeLayout>
