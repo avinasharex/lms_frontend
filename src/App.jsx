@@ -17,6 +17,7 @@ import Checkout from "./Pages/Payment/Checkout";
 import CheckoutFailure from "./Pages/Payment/CheckoutFailure";
 import CheckoutSuccess from "./Pages/Payment/CheckoutSuccess";
 import Signup from "./Pages/Signup";
+import ChangePassword from "./Pages/User/ChangePassword";
 import EditProfile from "./Pages/User/EditProfile";
 import Profile from "./Pages/User/Profile";
 
@@ -50,6 +51,7 @@ function App() {
           <Route path="/checkout/success" element={<CheckoutSuccess></CheckoutSuccess>}></Route>
           <Route path="/checkout/fail" element={<CheckoutFailure></CheckoutFailure>}></Route>
           <Route path="/course/lecture" element={<DisplayLecture></DisplayLecture>}></Route>
+          <Route path="/change-password" element={<ChangePassword></ChangePassword>}></Route>
         </Route>
 
         <Route path="/signup" element={<Signup></Signup>}></Route>

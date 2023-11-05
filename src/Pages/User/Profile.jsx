@@ -31,7 +31,7 @@ function Profile() {
           </div>
 
           <div className="flex items-center justify-between gap-2">
-            <Link to={'/changepassword'} className="bg-yellow-600 w-1/2 rounded-sm hover:bg-yellow-500 transition-all ease-in-out duration-300 font-semibold py-2 cursor-pointer px-1 text-center">Change Password</Link>
+            <Link to={'/change-password'} className="bg-yellow-600 w-1/2 rounded-sm hover:bg-yellow-500 transition-all ease-in-out duration-300 font-semibold py-2 cursor-pointer px-1 text-center">Change Password</Link>
 
             <Link to={'/user/editprofile'} className="bg-yellow-600 w-1/2 rounded-sm hover:bg-yellow-500 transition-all ease-in-out duration-300 font-semibold py-2 cursor-pointer px-1 text-center">Edit Profile</Link>
           </div>

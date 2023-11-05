@@ -49,7 +49,8 @@ function Signup() {
     if (
       !signupData.email ||
       !signupData.fullName ||
-      !signupData.password
+      !signupData.password ||
+      !signupData.avatar
     ) {
       toast.error("Please fill the details");
       return;

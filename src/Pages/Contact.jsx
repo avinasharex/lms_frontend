@@ -1,6 +1,7 @@
 import { useState } from "react"
 import toast from "react-hot-toast"
 
+import axiosInstance from "../Helpers/AxiosInstance"
 import { isEmail } from "../Helpers/regexMatcher"
 import HomeLayout from "../Layouts/HomeLayout"
 
@@ -25,10 +26,35 @@ function Contact() {
       toast.error("All field are manadatory")
       return
     }
+
+    if(userInput.name.length < 5){
+      toast.error("Name must be atleast 5 character")
+      return
+    }
     if(!isEmail(userInput.email)){
       toast.error("Invalid email id")
       return
     }
+    try {
+      const response = axiosInstance.post(`http://localhost:5000/api/v1/user/contactus`, userInput);
+      console.log(response);
+      toast.promise(response, {
+          loading: "Submitting your message...",
+          success: "Form submitted successfully",
+          error: "Failed to submit the form"
+      });
+      const contactResponse = await (response)
+      console.log(contactResponse);
+      if(contactResponse?.data?.success) {
+          setUserInput({
+              name: "",
+              email: "",
+              message: "",
+          });
+      }
+  } catch (err) {
+      toast.error("operation failed....")
+  }
   }
   return (
     <HomeLayout>
