@@ -1,7 +1,9 @@
+
 import { Route, Routes } from "react-router-dom";
 
 import RequireAuth from "./Auth/RequireAuth";
 import AboutPage from "./Pages/AboutPage";
+import ChangeForgotPassword from "./Pages/ChangeForgotPassword";
 import Contact from "./Pages/Contact";
 import CourseDescription from "./Pages/Course/CourseDescription";
 import CourseList from "./Pages/Course/CourseList";
@@ -10,6 +12,7 @@ import AddLecture from "./Pages/Dashboard/AddLecture";
 import AdminDashboard from "./Pages/Dashboard/AdminDashboard";
 import DisplayLecture from "./Pages/Dashboard/DisplayLecture";
 import Denied from "./Pages/Denied";
+import ForgotPassword from "./Pages/ForgotPassword";
 import HomePage from "./Pages/HomePage";
 import Login from "./Pages/Login";
 import NotFound from "./Pages/NotFound";
@@ -55,6 +58,8 @@ function App() {
         </Route>
 
         <Route path="/signup" element={<Signup></Signup>}></Route>
+        <Route path="/forgot/password" element={<ForgotPassword></ForgotPassword>}></Route>
+        <Route path={`/forgot/change/password/:resetToken`} element={<ChangeForgotPassword></ChangeForgotPassword>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
 
         <Route path="*" element={<NotFound></NotFound>}></Route>

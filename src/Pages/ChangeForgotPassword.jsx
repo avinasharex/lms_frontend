@@ -1,13 +1,13 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-import axiosInstance from "../../Helpers/AxiosInstance";
-import HomeLayout from "../../Layouts/HomeLayout";
-function ChangePassword() {
-  const navigate = useNavigate();
+import axiosInstance from "../Helpers/AxiosInstance";
+import HomeLayout from "../Layouts/HomeLayout";
+function ChangeForgotPassword() {
+  const navigate = useNavigate()
+  const token = useParams()
   const [userInput, setUserInput] = useState({
-    oldPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
@@ -22,10 +22,7 @@ function ChangePassword() {
 
   async function onFormSubmit(e) {
     e.preventDefault();
-    if (
-      !userInput.oldPassword ||
-      !userInput.newPassword ||
-      !userInput.confirmPassword
+    if (!userInput.newPassword || !userInput.confirmPassword
     ) {
       toast.error("All field are required");
       return;
@@ -36,8 +33,7 @@ function ChangePassword() {
     }
     try {
       const response = axiosInstance.post(
-        `http://localhost:5000/api/v1/user/change-password`,
-        userInput
+        `http://localhost:5000/api/v1/user/reset/${token.resetToken}`,userInput
       );
 
       toast.promise(response, {
@@ -47,10 +43,9 @@ function ChangePassword() {
         },
         error: "Password change failed, Please try again later",
       });
-      const finalResponse = await response;
-      console.log(finalResponse);
-      if (finalResponse?.data?.success) {
-        navigate(-1);
+      const passwordResponse =  (await response)
+      if(passwordResponse?.data?.success){
+        navigate('/login')
       }
     } catch (e) {
       toast.error(e?.response?.data?.message);
@@ -66,20 +61,6 @@ function ChangePassword() {
           <h1 className="text-2xl text-center text-yellow-500 font-semibold mb-5 mt-5">
             Change Password
           </h1>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="oldPassword" className="font-semibold text-lg">
-              Old password
-            </label>
-            <input
-              type="password"
-              placeholder="Enter your old password"
-              name="oldPassword"
-              id="oldPassword"
-              className="bg-transparent border px-2 py-1"
-              value={userInput.oldPassword}
-              onChange={handleInputChange}
-            />
-          </div>
           <div className="flex flex-col gap-2">
             <label htmlFor="newPassword" className="font-semibold text-lg">
               New password
@@ -121,4 +102,4 @@ function ChangePassword() {
   );
 }
 
-export default ChangePassword;
+export default ChangeForgotPassword;

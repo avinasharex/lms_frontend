@@ -12,7 +12,7 @@ const store = configureStore({
         course: CourseSlice,
         razorpay: RazorpaySlice,
         lecture: LectureSlice,
-        stat: StatSlice
+        stat: StatSlice,
     },
     deveTools: true
 })

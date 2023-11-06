@@ -3,10 +3,12 @@ import toast from "react-hot-toast";
 
 import axiosInstance from "../../Helpers/AxiosInstance";
 
+const storedData = localStorage.getItem('data');
+const parsedData = storedData ? JSON.parse(storedData) : {};
 const initialState = {
     isLoggedIn: localStorage.getItem("isLoggedIn") || false,
     role: localStorage.getItem('role') || "",
-    data: localStorage.getItem('data') != undefined ? JSON.parse(localStorage.getItem('data')) : {}
+    data: parsedData
 }
 
 export const createAccount = createAsyncThunk('auth/signup', async(data)=>{
@@ -28,18 +30,18 @@ export const createAccount = createAsyncThunk('auth/signup', async(data)=>{
 
 export const login = createAsyncThunk('auth/login', async(data)=>{
     try {
-        const res = await axiosInstance.post(`http://localhost:5000/api/v1/user/login`, data)
-        const successMessage = await data?.data?.message
-        toast.promise( 
-            Promise.resolve(successMessage),
+        const res = axiosInstance.post(`http://localhost:5000/api/v1/user/login`, data)
+        toast.promise(res,
             {
             loading: 'Wait authentication in progress...',
-            success: "Login successfully",
+            success: (data) => {
+                return data?.data?.message;
+            },
             error: 'Failed to login'
         })
-        return res.data
-    } catch (error) {
-        toast.error(error?.response?.data?.message)
+        return (await res).data
+    } catch (e) {
+        toast.error(e?.response?.data?.message)
     }
 })
 export const logout = createAsyncThunk('auth/logout', async()=>{
@@ -90,7 +92,12 @@ const authSlice = createSlice ({
     extraReducers: (builder)=>{
         builder
         .addCase(login.fulfilled, (state,action)=>{
-            localStorage.setItem("data", JSON.stringify(action?.payload?.user))
+            if (action?.payload?.user) {
+                localStorage.setItem('data', JSON.stringify(action?.payload?.user));
+            } else {
+                localStorage.removeItem('data'); // Remove the 'data' key
+            }
+            // localStorage.setItem("data", JSON.stringify(action?.payload?.user))
             localStorage.setItem("isLoggedIn", true)
             localStorage.setItem("role", action?.payload?.user?.role)
             state.isLoggedIn = true
