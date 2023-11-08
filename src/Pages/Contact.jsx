@@ -36,7 +36,7 @@ function Contact() {
       return
     }
     try {
-      const response = axiosInstance.post(`http://localhost:5000/api/v1/user/contactus`, userInput);
+      const response = axiosInstance.post(`/user/contactus`, userInput);
       console.log(response);
       toast.promise(response, {
           loading: "Submitting your message...",

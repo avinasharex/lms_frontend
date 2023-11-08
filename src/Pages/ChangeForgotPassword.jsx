@@ -32,8 +32,7 @@ function ChangeForgotPassword() {
       return;
     }
     try {
-      const response = axiosInstance.post(
-        `http://localhost:5000/api/v1/user/reset/${token.resetToken}`,userInput
+      const response = axiosInstance.post(`/user/reset/${token.resetToken}`,userInput
       );
 
       toast.promise(response, {

@@ -26,7 +26,7 @@ function ForgotPassword() {
             return
         }
         try {
-          const response = axiosInstance.post(`http://localhost:5000/api/v1/user/reset`, userInput)
+          const response = axiosInstance.post(`/user/reset`, userInput)
           toast.promise(response,{
             loading: 'Wait! authenticaion in proccess',
             success: (data)=>{

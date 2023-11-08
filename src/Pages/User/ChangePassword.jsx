@@ -35,8 +35,7 @@ function ChangePassword() {
       return;
     }
     try {
-      const response = axiosInstance.post(
-        `http://localhost:5000/api/v1/user/change-password`,
+      const response = axiosInstance.post(`/user/change-password`,
         userInput
       );
 

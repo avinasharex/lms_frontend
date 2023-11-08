@@ -13,8 +13,7 @@ const initialState = {
 
 export const createAccount = createAsyncThunk("auth/signup", async (data) => {
   try {
-    const res = await axiosInstance.post(
-      `http://localhost:5000/api/v1/user/register`,
+    const res = await axiosInstance.post(`/user/register`,
       data
     );
     const successMessage = await data?.data?.message;
@@ -31,11 +30,9 @@ export const createAccount = createAsyncThunk("auth/signup", async (data) => {
 
 export const login = createAsyncThunk("auth/login", async (data) => {
   try {
-    const res = axiosInstance.post(
-      `http://localhost:5000/api/v1/user/login`,
+    const res = axiosInstance.post(`/user/login`,
       data
     );
-    console.log(res);
     toast.promise(res, {
       loading: "Wait authentication in progress...",
       success: (data) => {
@@ -50,8 +47,7 @@ export const login = createAsyncThunk("auth/login", async (data) => {
 });
 export const logout = createAsyncThunk("auth/logout", async () => {
   try {
-    const res = await axiosInstance.get(
-      `http://localhost:5000/api/v1/user/logout`
+    const res = await axiosInstance.get(`/user/logout`
     );
     const successMessage = await res?.data?.message;
     toast.promise(Promise.resolve(successMessage), {
@@ -67,9 +63,7 @@ export const updateProfile = createAsyncThunk(
   "user/update/profile",
   async (data) => {
     try {
-      const res = await axiosInstance.put(
-        `http://localhost:5000/api/v1/user/update/${data[0]}`,
-        data[1]
+      const res = await axiosInstance.put(`/user/update/${data[0]}`,data[1]
       );
       const successMessage = await res?.data?.message;
       toast.promise(Promise.resolve(successMessage), {
@@ -86,7 +80,7 @@ export const updateProfile = createAsyncThunk(
 
 export const getUserData = createAsyncThunk("user/details", async () => {
   try {
-    const res = await axiosInstance.get(`http://localhost:5000/api/v1/user/me`);
+    const res = await axiosInstance.get(`/user/me`);
     return res.data;
   } catch (error) {
     toast.error(error?.message);
@@ -94,8 +88,7 @@ export const getUserData = createAsyncThunk("user/details", async () => {
 });
 export const deleteUser = createAsyncThunk("user/delete", async () => {
   try {
-    const response = axiosInstance.delete(
-      `http://localhost:5000/api/v1/user/delete`
+    const response = axiosInstance.delete(`/user/delete`
     );
     toast.promise(response, {
       loading: "Account deletion in prgogress",

@@ -9,7 +9,7 @@ const initialState = {
 
 export const getAllCourses = createAsyncThunk('/courses/get', async()=>{
     try {
-        const response = await axiosInstance.get(`http://localhost:5000/api/v1/courses/`)
+        const response = await axiosInstance.get(`/courses/`)
         const successMessage = response?.data?.message
         toast.promise(
             Promise.resolve(successMessage),
@@ -26,7 +26,7 @@ export const getAllCourses = createAsyncThunk('/courses/get', async()=>{
 })
 export const deleteCourse = createAsyncThunk('/course/delete', async(id)=>{
     try {
-        const response = axiosInstance.delete(`http://localhost:5000/api/v1/courses/${id}`)
+        const response = axiosInstance.delete(`/courses/${id}`)
         toast.promise(response,
             {
                 loading: "Deleting course ",
@@ -41,7 +41,7 @@ export const deleteCourse = createAsyncThunk('/course/delete', async(id)=>{
 })
 export const createNewCourse = createAsyncThunk('/courses/create', async(data)=>{
     try {
-        const response = await axiosInstance.post(`http://localhost:5000/api/v1/courses/`, data)
+        const response = await axiosInstance.post(`/courses/`, data)
         const successMessage = await data?.data?.message
         toast.promise(
             Promise.resolve(successMessage),
