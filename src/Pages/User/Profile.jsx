@@ -1,9 +1,9 @@
-import toast from "react-hot-toast";
+
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom";
 
 import HomeLayout from "../../Layouts/HomeLayout"
-import { getUserData } from "../../Redux/Slices/AuthSlice";
+import { deleteUser, getUserData } from "../../Redux/Slices/AuthSlice";
 import { cancelCourseBundle } from "../../Redux/Slices/RazorpaySlice";
 
 function Profile() {
@@ -12,10 +12,16 @@ function Profile() {
     const userData = useSelector((state)=> state?.auth?.data)
     
     async function handleCancellation(){
-    toast("Initiating unsubscribe")
     await dispatch(cancelCourseBundle())
     await dispatch(getUserData())
     navigate('/')
+    }
+    async function handleDelete(){
+      if(window.confirm("Are you sure you want delete your account")){
+    const res = await dispatch(deleteUser())
+    if(res?.data?.success){
+      navigate('/')
+    }}
     }
   return (
     <HomeLayout>
@@ -34,7 +40,10 @@ function Profile() {
             <Link to={'/change-password'} className="bg-yellow-600 w-1/2 rounded-sm hover:bg-yellow-500 transition-all ease-in-out duration-300 font-semibold py-2 cursor-pointer px-1 text-center">Change Password</Link>
 
             <Link to={'/user/editprofile'} className="bg-yellow-600 w-1/2 rounded-sm hover:bg-yellow-500 transition-all ease-in-out duration-300 font-semibold py-2 cursor-pointer px-1 text-center">Edit Profile</Link>
+
           </div>
+            <button onClick={handleDelete} className="rounded-sm w-full bg-red-500 hover:bg-red-600 transition-all ease-in-out duration-300 font-semibold py-2 text-center">Delete Account</button>
+
           {userData?.subscription?.status === 'active' && (
             <button onClick={handleCancellation} className="w-full bg-red-600 hover:bg-red-500 transition-all ease-in-out duration-300 font-semibold py-2 cursor-pointer px-1 text-center rounded-sm">
               Cancel Subscription
