@@ -1,5 +1,5 @@
 import mainAboutImg from "../Assests/Header.webp";
-import CarouselSlide from '../components/CarouselSlide';
+import CarouselSlide from '../components/carouselSlide'
 import { famousPerson } from "../Constants/PersonData";
 import HomeLayout from "../Layouts/HomeLayout";
 
